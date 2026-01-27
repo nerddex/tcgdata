@@ -1,0 +1,35 @@
+# Virtual environments
+venv/
+scripts/venv/
+env/
+ENV/
+
+# Downloaded archives
+*.ppmd.7z
+*.7z
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+.git/logs/
+
+# Temporary files
+temp/
+tmp/
