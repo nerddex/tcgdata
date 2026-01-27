@@ -140,81 +140,59 @@ def extract_prices_from_archive(archive_path, date_str, target_categories):
     return price_data
 
 
-def calculate_averages(price_records):
-    """
-    Calculate 30-day and 7-day averages from a list of price records.
-    
-    Returns a dict with avg30 and avg7 for each price field.
-    """
-    if not price_records:
-        return None
-    
-    today = datetime.datetime.now(datetime.timezone.utc).date()
-    
-    # Sort records by date
-    sorted_records = sorted(price_records, key=lambda x: x['date'], reverse=True)
-    
-    # Get last 30 days and last 7 days
-    records_30d = []
-    records_7d = []
-    
-    for record in sorted_records:
-        try:
-            record_date = datetime.datetime.strptime(record['date'], '%Y-%m-%d').date()
-            days_diff = (today - record_date).days
-            
-            if days_diff <= 30:
-                records_30d.append(record)
-            if days_diff <= 7:
-                records_7d.append(record)
-        except ValueError:
-            continue
-    
-    def calc_avg(records, field):
-        """Calculate average for a specific field, ignoring None values."""
-        values = [r[field] for r in records if r.get(field) is not None]
-        if not values:
-            return None
-        return round(sum(values) / len(values), 2)
-    
-    result = {
-        'avg30': {},
-        'avg7': {}
-    }
-    
-    for field in PRICE_FIELDS:
-        result['avg30'][field] = calc_avg(records_30d, field)
-        result['avg7'][field] = calc_avg(records_7d, field)
-    
-    return result
-
-
 def update_product_file(data_dir, category_id, product_id, sub_type, price_records):
     """
-    Update the product JSON file with calculated averages.
+    Update the product JSON file with price data from day 7 and day 30.
+    Each file contains exactly 2 entries: one for day 7 and one for day 30.
     """
     output_dir = Path(data_dir) / category_id
     output_dir.mkdir(parents=True, exist_ok=True)
-    output_file = output_dir / f"{product_id}.json"
+    output_file = output_dir / f"{product_id}_{sub_type}.json"
     
-    # Calculate averages
-    averages = calculate_averages(price_records)
+    # Read existing data if file exists
+    existing_data = {}
+    if output_file.exists():
+        try:
+            with open(output_file, 'r', encoding='utf-8') as f:
+                existing_data = json.load(f)
+        except (json.JSONDecodeError, IOError):
+            existing_data = {}
     
-    if not averages:
-        return
+    # Update with new price records
+    # price_records is a list of records (should be 1 or 2 items)
+    for record in price_records:
+        date_str = record['date']
+        
+        # Determine if this is day 7 or day 30 data
+        today = datetime.datetime.now(datetime.timezone.utc).date()
+        record_date = datetime.datetime.strptime(date_str, '%Y-%m-%d').date()
+        days_diff = (today - record_date).days
+        
+        if days_diff == 7:
+            key = 'day7'
+        elif days_diff == 30:
+            key = 'day30'
+        else:
+            continue
+        
+        # Store the price data
+        existing_data[key] = {
+            'date': date_str,
+            'lowPrice': record.get('lowPrice'),
+            'midPrice': record.get('midPrice'),
+            'highPrice': record.get('highPrice'),
+            'marketPrice': record.get('marketPrice'),
+            'directLowPrice': record.get('directLowPrice')
+        }
     
-    # Create the data structure
-    data = {
-        'productId': int(product_id),
-        'subTypeName': sub_type,
-        'lastUpdated': datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%d'),
-        'avg30': averages['avg30'],
-        'avg7': averages['avg7']
-    }
+    # Add metadata
+    existing_data['productId'] = int(product_id)
+    existing_data['subTypeName'] = sub_type
+    existing_data['lastUpdated'] = datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%d')
     
     # Write to file
     with open(output_file, 'w', encoding='utf-8') as f:
-        json.dump(data, f, indent=2)
+        json.dump(existing_data, f, indent=2)
 
 
 def process_daily_data(archive_path, date_str, data_dir):
@@ -237,49 +215,3 @@ def process_daily_data(archive_path, date_str, data_dir):
         update_product_file(data_dir, category_id, product_id, sub_type, records)
     
     logging.info("Daily processing complete.")
-
-
-def fetch_and_build_history(days=30, data_dir='data'):
-    """
-    Fetch historical data for the specified number of days and build the database.
-    This is used for initial setup.
-    """
-    logging.info(f"Building {days}-day history...")
-    
-    today = datetime.datetime.now(datetime.timezone.utc).date()
-    
-    # Collect all price data across days
-    all_price_data = defaultdict(list)
-    
-    for i in range(days, 0, -1):
-        date_obj = today - datetime.timedelta(days=i)
-        date_str = date_obj.strftime('%Y-%m-%d')
-        
-        url = f"https://tcgcsv.com/archive/tcgplayer/prices-{date_str}.ppmd.7z"
-        archive_path = Path(f"prices-{date_str}.ppmd.7z")
-        
-        if download_file(url, archive_path):
-            try:
-                # Extract prices and merge into all_price_data
-                daily_data = extract_prices_from_archive(archive_path, date_str, TARGET_CATEGORIES.keys())
-                
-                for key, records in daily_data.items():
-                    all_price_data[key].extend(records)
-                
-            except Exception as e:
-                logging.error(f"Error processing {date_str}: {e}")
-            finally:
-                if archive_path.exists():
-                    os.remove(archive_path)
-        else:
-            logging.warning(f"Failed to download {date_str}")
-    
-    # Now calculate averages and write files
-    logging.info(f"Building database for {len(all_price_data)} products...")
-    
-    Path(data_dir).mkdir(parents=True, exist_ok=True)
-    
-    for (category_id, product_id, sub_type), records in all_price_data.items():
-        update_product_file(data_dir, category_id, product_id, sub_type, records)
-    
-    logging.info("History build complete.")
