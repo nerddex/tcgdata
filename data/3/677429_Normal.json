@@ -1,13 +1,13 @@
 {
   "day7": {
-    "date": "2026-02-12",
+    "date": "2026-02-13",
     "lowPrice": 0.1,
-    "midPrice": 1.2,
+    "midPrice": 1.1,
     "highPrice": 1.25,
-    "marketPrice": null,
+    "marketPrice": 1.2,
     "directLowPrice": null
   },
   "productId": 677429,
   "subTypeName": "Normal",
-  "lastUpdated": "2026-02-19"
+  "lastUpdated": "2026-02-20"
 }
