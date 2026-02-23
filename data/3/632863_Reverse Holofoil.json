@@ -1,21 +1,21 @@
 {
   "day7": {
-    "date": "2026-02-15",
+    "date": "2026-02-16",
     "lowPrice": 0.04,
     "midPrice": 0.28,
     "highPrice": 2.99,
-    "marketPrice": 0.28,
-    "directLowPrice": 0.33
+    "marketPrice": 0.3,
+    "directLowPrice": 0.25
   },
   "productId": 632863,
   "subTypeName": "Reverse Holofoil",
-  "lastUpdated": "2026-02-22",
+  "lastUpdated": "2026-02-23",
   "day30": {
-    "date": "2026-01-23",
+    "date": "2026-01-24",
     "lowPrice": 0.07,
     "midPrice": 0.26,
     "highPrice": 2.99,
-    "marketPrice": 0.26,
+    "marketPrice": 0.25,
     "directLowPrice": 0.29
   }
 }
