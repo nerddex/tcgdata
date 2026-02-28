@@ -1,21 +1,21 @@
 {
   "day7": {
-    "date": "2026-02-20",
-    "lowPrice": 9.0,
-    "midPrice": 12.88,
+    "date": "2026-02-21",
+    "lowPrice": 8.0,
+    "midPrice": 12.99,
     "highPrice": 99.99,
-    "marketPrice": 11.57,
-    "directLowPrice": 14.43
+    "marketPrice": 11.53,
+    "directLowPrice": 12.68
   },
   "productId": 623589,
   "subTypeName": "Holofoil",
-  "lastUpdated": "2026-02-27",
+  "lastUpdated": "2026-02-28",
   "day30": {
-    "date": "2026-01-28",
+    "date": "2026-01-29",
     "lowPrice": 8.5,
-    "midPrice": 12.95,
+    "midPrice": 12.5,
     "highPrice": 85.0,
-    "marketPrice": 10.55,
-    "directLowPrice": 10.3
+    "marketPrice": 10.46,
+    "directLowPrice": null
   }
 }

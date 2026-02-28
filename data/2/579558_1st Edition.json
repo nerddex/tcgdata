@@ -1,21 +1,21 @@
 {
   "day7": {
-    "date": "2026-02-20",
-    "lowPrice": 25.98,
-    "midPrice": 28.99,
+    "date": "2026-02-21",
+    "lowPrice": 25.0,
+    "midPrice": 28.42,
     "highPrice": 96.95,
-    "marketPrice": 27.9,
+    "marketPrice": 27.89,
     "directLowPrice": null
   },
   "productId": 579558,
   "subTypeName": "1st Edition",
-  "lastUpdated": "2026-02-27",
+  "lastUpdated": "2026-02-28",
   "day30": {
-    "date": "2026-01-28",
+    "date": "2026-01-29",
     "lowPrice": 25.8,
-    "midPrice": 29.95,
+    "midPrice": 30.0,
     "highPrice": 49.95,
-    "marketPrice": 25.42,
-    "directLowPrice": null
+    "marketPrice": 25.92,
+    "directLowPrice": 29.95
   }
 }
