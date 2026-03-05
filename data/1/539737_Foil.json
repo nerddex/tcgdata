@@ -1,21 +1,21 @@
 {
   "day7": {
-    "date": "2026-02-25",
-    "lowPrice": 22.38,
-    "midPrice": 26.86,
+    "date": "2026-02-26",
+    "lowPrice": 22.99,
+    "midPrice": 26.06,
     "highPrice": 49.99,
-    "marketPrice": 22.2,
-    "directLowPrice": 26.86
+    "marketPrice": 22.4,
+    "directLowPrice": null
   },
   "productId": 539737,
   "subTypeName": "Foil",
-  "lastUpdated": "2026-03-04",
+  "lastUpdated": "2026-03-05",
   "day30": {
-    "date": "2026-02-02",
+    "date": "2026-02-03",
     "lowPrice": 20.99,
-    "midPrice": 26.53,
+    "midPrice": 26.81,
     "highPrice": 42.96,
-    "marketPrice": 22.34,
+    "marketPrice": 22.27,
     "directLowPrice": 20.99
   }
 }
