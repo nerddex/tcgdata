@@ -1,13 +1,13 @@
 {
   "day7": {
-    "date": "2026-03-03",
+    "date": "2026-03-04",
     "lowPrice": 1000.0,
     "midPrice": 1000.0,
     "highPrice": 1000.0,
     "marketPrice": null,
-    "directLowPrice": null
+    "directLowPrice": 1000.0
   },
   "productId": 679606,
   "subTypeName": "Foil",
-  "lastUpdated": "2026-03-10"
+  "lastUpdated": "2026-03-11"
 }
