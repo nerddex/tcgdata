@@ -1,21 +1,21 @@
 {
   "day7": {
-    "date": "2026-04-02",
+    "date": "2026-04-03",
     "lowPrice": 42.0,
-    "midPrice": 48.0,
+    "midPrice": 48.28,
     "highPrice": 99.99,
-    "marketPrice": 46.08,
-    "directLowPrice": 66.49
+    "marketPrice": 45.5,
+    "directLowPrice": 66.5
   },
   "productId": 218887,
   "subTypeName": "Normal",
-  "lastUpdated": "2026-04-09",
+  "lastUpdated": "2026-04-10",
   "day30": {
-    "date": "2026-03-10",
+    "date": "2026-03-11",
     "lowPrice": 37.0,
-    "midPrice": 48.55,
+    "midPrice": 48.95,
     "highPrice": 99.99,
-    "marketPrice": 47.44,
+    "marketPrice": 47.53,
     "directLowPrice": 50.99
   }
 }
